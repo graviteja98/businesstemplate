@@ -7,13 +7,14 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import { Outlet, useNavigate } from "react-router";
 import {
   CssBaseline,
   Drawer,
   Grid,
   InputAdornment,
+  Popover,
   TextField,
   useMediaQuery,
 } from "@mui/material";
@@ -24,8 +25,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
 import List from "@mui/material/List";
-
-
 import CampaignIcon from "@mui/icons-material/Campaign";
 import { ContactMail, Event, Home, InfoRounded } from "@mui/icons-material";
 export default function Appbar() {
@@ -35,23 +34,33 @@ export default function Appbar() {
   const [draw, setDraw] = useState(false);
   const drawerWidth = 240;
   const navigate = useNavigate();
-  const Icons = [<Home />, <InfoRounded />, <Event />, <ContactMail/>];
+  const Icons = [<Home />, <InfoRounded />, <Event />, <ContactMail />];
+  // const [showDrop, setShowDrop] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const showDrop = Boolean(anchorEl);
   return (
-    <Box sx={{ flexGrow: 1 }} alignContent={'center'}>
+    <Box sx={{ flexGrow: 1 }} alignContent={"center"}>
       <CssBaseline />
       <AppBar
-        
         position="fixed"
         sx={{
           zIndex: (theme) => theme.zIndex.appBar,
           height: "3.5em",
-          alignContent : 'center'
+          alignContent: "center",
         }}
       >
         <Toolbar>
-          <Grid container justifyContent="flex-start" >
+          <Grid container justifyContent="flex-start">
             {/* Left-side items */}
-            <Grid item alignContent='flex-start' >
+            <Grid item alignContent="flex-start">
               <IconButton
                 size="small"
                 color="black"
@@ -65,11 +74,7 @@ export default function Appbar() {
                 onClick={() => navigate("/")}
                 startIcon={<CampaignIcon />}
               >
-                <Typography
-                  variant={"body2"}
-                  color="black"
-                  fontWeight={600}
-                >
+                <Typography variant={"body2"} color="black" fontWeight={600}>
                   Marcon Agency
                 </Typography>
               </Button>
@@ -91,40 +96,69 @@ export default function Appbar() {
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button color="inherit" onClick={() => navigate("event")}>
+                  <Button
+                    color="inherit"
+                    onClick={(e) => handlePopoverOpen(e)}
+                    // aria-owns={showDrop ? "hover-menu" : undefined}
+                    // aria-haspopup="true"
+                    // onMouseEnter={(e) => handlePopoverOpen(e)}
+                    // onMouseLeave={(e) => handlePopoverClose(e)}
+                  >
                     Event
                   </Button>
+
+                  <Popover
+                    open={showDrop}
+                    anchorEl={anchorEl}
+                    onClose={handlePopoverClose}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                   
+                  >
+                    <List  sx={{ backgroundColor : 'primary.main'}}>
+                      <ListItemButton onClick={()=>{navigate('event')}}>
+                        <ListItemText primary="Option 1" />
+                      </ListItemButton>
+                      <ListItemButton onClick={()=>{navigate('event')}}>
+                        <ListItemText primary="Option 2" />
+                      </ListItemButton>
+                      <ListItemButton onClick={()=>{navigate('event')}}>
+                        <ListItemText primary="Option 3" />
+                      </ListItemButton>
+                    </List>
+                  </Popover>
                 </Grid>
                 <Grid item>
                   <Button color="inherit" onClick={() => navigate("contact")}>
                     Contact
                   </Button>
                 </Grid>
-                <Grid item >
+                <Grid item>
                   <TextField
-                  size='small'
-             
+                    size="small"
                     fullWidth
                     type="text"
                     placeholder="Search"
                     variant="outlined"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    
-                    InputProps={
-                        {      style: {
-                            borderRadius: "4em",
-                            backgroundColor : 'whitesmoke',
-                            height : '2em',
-                            borderWidth : '1em'
-                          },
-                             endAdornment : <InputAdornment position="end"><SearchIcon/></InputAdornment>
-                        }
-                    }
-           
+                    InputProps={{
+                      style: {
+                        borderRadius: "4em",
+                        backgroundColor: "whitesmoke",
+                        height: "2em",
+                        borderWidth: "1em",
+                      },
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <SearchIcon />
+                        </InputAdornment>
+                      ),
+                    }}
                     style={{
-                        borderRadius : '50%',
-                      
+                      borderRadius: "50%",
                     }}
                   />
                 </Grid>{" "}
@@ -169,7 +203,10 @@ export default function Appbar() {
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>{Icons[index]}</ListItemIcon>
-                  <ListItemText primary={text} onClick={() => navigate(text.toLowerCase())} />
+                  <ListItemText
+                    primary={text}
+                    onClick={() => {navigate(text.toLowerCase()); setDraw(false)}}
+                  />
                 </ListItemButton>
               </ListItem>
             ))}
