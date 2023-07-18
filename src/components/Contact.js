@@ -14,7 +14,26 @@ import { Facebook, Instagram, Mail, Twitter } from '@mui/icons-material';
 
 const Contact = () => {
   return (
-    <Container maxWidth="md" sx={{ mt: 8, backgroundColor : 'secondary.lightest', p: 4 }}>
+    <Container
+    maxWidth = '100%'
+  
+    sx={
+      {
+        top : 0,
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        height: '100vh', // Adjust the height as needed
+        backgroundImage: 'url("https://images.unsplash.com/photo-1484950763426-56b5bf172dbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80")', // Replace with your image URL
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
+    } >
+      <Box 
+       display='flex'
+       justifyContent='center'
+       alignItems='center'
+      sx={{ mt: 8, backgroundColor : 'secondary.darkest', p: 4, width : 700 }}>
       <Grid container spacing={4}>
         {/* Contact Information */}
         <Grid item xs={12} sm={6}>
@@ -71,6 +90,7 @@ const Contact = () => {
           </List>
         </Grid>
       </Grid>
+      </Box>
     </Container>
   );
 };

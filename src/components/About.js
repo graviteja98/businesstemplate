@@ -4,13 +4,19 @@ import { Container, Typography, Box } from '@mui/material';
 const About = () => {
   return (
     <Box sx={{
-        backgroundImage : 'url("https://images.unsplash.com/photo-1531973576160-7125cd663d86?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80")'
-        ,minHeight : '100vh',
-        backgroundRepeat : 'no-repeat',backgroundSize: 'cover',
+       backgroundImage : 'url("https://images.unsplash.com/photo-1531973576160-7125cd663d86?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80")'
+      ,top : 0,
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundRepeat : 'no-repeat',
+        backgroundSize : 'cover'
     }}>
-    <Container maxWidth="md" sx={{ mt: 4,
+    <Container maxWidth="md" sx={{ 
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    color :'white'
+    color :'white',
+    mt : 9
     }}>
       <Typography variant="h4" gutterBottom sx={{ backgroundColor : 'secondary.lightest', color : 'black' }} align="center">
         About Us

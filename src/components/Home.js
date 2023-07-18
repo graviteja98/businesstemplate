@@ -20,7 +20,8 @@ function Home() {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         height : 500,
         p : 2,
-        maxWidth : 500
+        maxWidth : 500,
+        mt : 9,
     }}>
     <Typography variant="h4" color="primary" fontWeight={600}>
         {'We are the creative'.toUpperCase()}

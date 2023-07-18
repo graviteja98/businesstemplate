@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.footer-container {
+  background-color: whitesmoke;
+margin-top:  2em;
+padding-top: 2em;
+}
+
+.footer-section {
+  color : 'white';
+}

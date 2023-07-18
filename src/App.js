@@ -11,7 +11,7 @@ const About = lazy(() => import("./components/About"));
 const Event = lazy(() => import("./components/Event"));
 const Contact = lazy(() => import("./components/Contact"));
 const NotFound = lazy(() => import("./components/NotFound"));
-
+const Footer = lazy(() => import("./components/Footer"));
 function App() {
   const StyledSkeleton = styled(Skeleton)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.main,
@@ -91,6 +91,9 @@ function App() {
             />
           </Route>
         </Routes>
+        <Suspense fallback={<FallbackUI />}>
+        <Footer />
+        </Suspense>
       </ThemeProvider>
     </>
   );

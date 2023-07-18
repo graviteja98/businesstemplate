@@ -10,6 +10,7 @@ import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { Outlet, useNavigate } from "react-router";
 import {
+
   CssBaseline,
   Drawer,
   Grid,
@@ -26,7 +27,8 @@ import ListItemText from "@mui/material/ListItemText";
 
 import List from "@mui/material/List";
 import CampaignIcon from "@mui/icons-material/Campaign";
-import { ContactMail, Event, Home, InfoRounded } from "@mui/icons-material";
+import {  ContactMail, Event, Home, InfoRounded, KeyboardArrowUp } from "@mui/icons-material";
+// import styled from "@emotion/styled";
 export default function Appbar() {
   const [search, setSearch] = useState("");
   const ismallScreen = useMediaQuery("(max-width:600px)");
@@ -46,35 +48,68 @@ export default function Appbar() {
     setAnchorEl(null);
   };
   const showDrop = Boolean(anchorEl);
+  // const BlurredBackdrop = styled(Backdrop)(({ theme }) => ({
+  //   backdropFilter: 'blur(4px)',
+  //   backgroundColor: 'rgba(255, 255, 255, 0.8)', // Adjust the alpha value for transparency
+  //   position: 'absolute',
+  //   top: 0,
+  //   left: 0,
+  //   width: '100%',
+  //   height: '100%',
+  //   zIndex: theme.zIndex.drawer + 1,
+  // }));
+  const [showButton, setShowButton] = useState(false);
+
+  const handleScroll = () => {
+    const scrollY = window.scrollY;
+    if (scrollY > 150) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  };
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
     <Box sx={{ flexGrow: 1 }} alignContent={"center"}>
       <CssBaseline />
+     
+      <>
       <AppBar
         position="fixed"
         sx={{
           zIndex: (theme) => theme.zIndex.appBar,
           height: "3.5em",
           alignContent: "center",
+          backgroundColor:  draw ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.3)'
+          , borderBottom : '0.05em solid white'
         }}
       >
         <Toolbar>
           <Grid container justifyContent="flex-start">
             {/* Left-side items */}
-            <Grid item alignContent="flex-start">
+            {/* <Grid item alignContent="flex-start">
               <IconButton
                 size="small"
-                color="black"
+          
                 onClick={() => navigate("/")}
               >
                 <CampaignIcon />
               </IconButton>
-            </Grid>
+            </Grid> */}
             <Grid item>
               <Button
                 onClick={() => navigate("/")}
                 startIcon={<CampaignIcon />}
               >
-                <Typography variant={"body2"} color="black" fontWeight={600}>
+                <Typography variant={"body2"}  fontWeight={600}>
                   Marcon Agency
                 </Typography>
               </Button>
@@ -86,18 +121,18 @@ export default function Appbar() {
             {!ismallScreen && (
               <>
                 <Grid item>
-                  <Button color="inherit" onClick={() => navigate("/")}>
+                  <Button color="primary" onClick={() => navigate("/")}>
                     Home
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button color="inherit" onClick={() => navigate("about")}>
+                  <Button color="primary" onClick={() => navigate("about")}>
                     About
                   </Button>
                 </Grid>
                 <Grid item>
                   <Button
-                    color="inherit"
+                   
                     onClick={(e) => handlePopoverOpen(e)}
                     // aria-owns={showDrop ? "hover-menu" : undefined}
                     // aria-haspopup="true"
@@ -106,7 +141,7 @@ export default function Appbar() {
                   >
                     Event
                   </Button>
-
+                 
                   <Popover
                     open={showDrop}
                     anchorEl={anchorEl}
@@ -115,9 +150,11 @@ export default function Appbar() {
                       vertical: "bottom",
                       horizontal: "left",
                     }}
-                   
+                 
                   >
-                    <List  sx={{ backgroundColor : 'primary.main'}}>
+                    <List  sx={{  
+                      backgroundColor:  draw ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.5)' ,
+                       color : 'white' }}>
                       <ListItemButton onClick={()=>{navigate('event')}}>
                         <ListItemText primary="Option 1" />
                       </ListItemButton>
@@ -131,7 +168,7 @@ export default function Appbar() {
                   </Popover>
                 </Grid>
                 <Grid item>
-                  <Button color="inherit" onClick={() => navigate("contact")}>
+                  <Button color="primary" onClick={() => navigate("contact")}>
                     Contact
                   </Button>
                 </Grid>
@@ -169,7 +206,7 @@ export default function Appbar() {
               <IconButton
                 size="large"
                 edge="start"
-                color="inherit"
+                color="primary"
                 aria-label="menu"
                 sx={{ ml: 2 }}
                 onClick={() => setDraw(!draw)}
@@ -180,16 +217,19 @@ export default function Appbar() {
           </Grid>
         </Toolbar>
       </AppBar>
-
       <Drawer
         anchor="right"
         open={draw}
         onClose={() => {
           setDraw(false);
         }}
+        style={{
+          mt : 9
+        }}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
+         
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
             boxSizing: "border-box",
@@ -213,10 +253,25 @@ export default function Appbar() {
           </List>
         </Box>
       </Drawer>
-
-      <Box sx={{ mt: 9 }}>
+      </>
+      <Box sx={{  }}>
         <Outlet />
       </Box>
+      {showButton && (
+        <IconButton
+          aria-label="Scroll to top"
+          onClick={handleScrollToTop}
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            backgroundColor: '#f50057',
+            color: '#fff',
+          }}
+        >
+          <KeyboardArrowUp />
+        </IconButton>
+      )}
     </Box>
   );
 }
