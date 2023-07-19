@@ -20,7 +20,7 @@ function App() {
     return (
       <>
         {/* Rectangular Skeleton */}
-        <StyledSkeleton variant="rectangular" width={300} height={200} />
+        <StyledSkeleton variant="rectangular" width="100%" height={200} />
 
         {/* Circular Skeleton */}
         {/* <StyledSkeleton variant="circular" width={40} height={40} /> */}
@@ -92,7 +92,7 @@ function App() {
           </Route>
         </Routes>
         <Suspense fallback={<FallbackUI />}>
-        <Footer />
+          <Footer />
         </Suspense>
       </ThemeProvider>
     </>
