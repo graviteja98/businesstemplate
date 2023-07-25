@@ -11,9 +11,13 @@ import {
   Link,
 } from '@mui/material';
 import { Facebook, Instagram, Mail, Twitter } from '@mui/icons-material';
-
+import { motion } from 'framer-motion';
 const Contact = () => {
   return (
+    <motion.div
+    initial={{ opacity: 0 }} // Initial opacity set to 0 (completely transparent)
+    animate={{ opacity: 1 }} // Animation to increase opacity to 1 (fully visible)
+    transition={{ duration: 0.5 }} >
     <Container
     maxWidth = '100%'
   
@@ -91,7 +95,7 @@ const Contact = () => {
         </Grid>
       </Grid>
       </Box>
-    </Container>
+    </Container></motion.div>
   );
 };
 

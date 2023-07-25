@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Typography, Box } from '@mui/material';
-
+import { motion } from 'framer-motion';
 const About = () => {
   return (
     <Box sx={{
@@ -18,9 +18,25 @@ const About = () => {
     color :'white',
     mt : 9
     }}>
+        <motion.div
+      initial={{ scale: 0 }} // Initial scale set to 0 (completely scaled down)
+      animate={{ scale: 1 }} // Animation to increase scale to 1 (original size)
+      transition={{ duration: 0.4 }} // Duration of the scaling animation (in seconds)
+      // style={{
+      //   width: 100,
+      //   height: 100,
+      //   background: 'blue',
+      //   borderRadius: 8,
+      // }}
+    >
       <Typography variant="h4" gutterBottom sx={{ backgroundColor : 'secondary.lightest', color : 'black' }} align="center">
         About Us
       </Typography>
+      </motion.div>
+      <motion.div
+      initial={{ opacity: 0 }} // Initial opacity set to 0 (completely transparent)
+      animate={{ opacity: 1 }} // Animation to increase opacity to 1 (fully visible)
+      transition={{ duration: 2 }} >
       <Box sx={{ backgroundColor: 'rgba(0, 0, 0, 0.1)', p: 2, }}>
         <Typography variant="body1">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at dignissim nisi. Nunc vel
@@ -32,7 +48,7 @@ const About = () => {
           lacinia neque cursus. Sed id nisi finibus, interdum lectus ac, consequat enim. Sed in
           turpis at justo gravida convallis in nec purus.
         </Typography>
-      </Box>
+      </Box></motion.div>
     </Container>
     </Box>
   );

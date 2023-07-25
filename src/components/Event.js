@@ -8,7 +8,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-
+import { motion } from "framer-motion";
 const Event = () => {
   console.log('red')
   return (
@@ -44,6 +44,9 @@ const Event = () => {
       <Grid container spacing={4}>
         {/* Card 1 */}
         <Grid item xs={12} sm={12}>
+        <motion.div
+   initial={{ x: -100 }} // Initial position to the left (off-screen)
+   animate={{ x: 0 }}>
           <Card
             sx={{
               backgroundColor : 'primary.main',
@@ -67,10 +70,14 @@ const Event = () => {
               </Typography>
             </CardContent>
           </Card>
+          </motion.div>
         </Grid>
 
         {/* Card 2 */}
         <Grid item xs={12} sm={12}>
+        <motion.div
+   initial={{ x: 100 }} // Initial position to the left (off-screen)
+   animate={{ x: 0 }}>
           <Card
             sx={{ backgroundColor : 'primary.main', display: "flex", flexDirection: { xs: "column", sm: "row" } }}
           >
@@ -90,10 +97,14 @@ const Event = () => {
               </Typography>
             </CardContent>
           </Card>
+          </motion.div>
         </Grid>
 
         {/* Card 3 */}
         <Grid item xs={12} sm={12}>
+        <motion.div
+   initial={{ x: -100 }} // Initial position to the left (off-screen)
+   animate={{ x: 0 }}>
           <Card
             sx={{ backgroundColor : 'primary.main',
               display: "flex",
@@ -116,6 +127,7 @@ const Event = () => {
               </Typography>
             </CardContent>
           </Card>
+          </motion.div>
         </Grid>
       </Grid>
       </Box>
